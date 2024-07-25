@@ -3,7 +3,7 @@ const config = require("config");
 const debuger = require("debug")("development:mongoose");
 
 mongoose
-.connect(`${config.get("MONGODB_URI")}`)
+  .connect(`${config.get("MONGODB_URI")}`)
   .then(() => {
     debuger("Connected to MongoDB");
   })

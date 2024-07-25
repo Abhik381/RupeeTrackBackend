@@ -6,7 +6,7 @@ module.exports.userCreate = async (req, res) => {
   try {
     const { email, contact, password } = res.body;
     const user = await userModel.findOne({ email });
-    
+
     if (user) return res.status(400).json({ message: "User already exists" });
 
     bcrypt.genSalt(saltRounds, function (err, salt) {
@@ -28,7 +28,7 @@ module.exports.userCreate = async (req, res) => {
         const createUser = await userModel.create(payload);
         const token = jwt.sign(
           { id: createUser._id, email },
-          process.env.JWT_KEY,
+          process.env.JWT_KEY
         );
         res.cookie("token", token);
 
