@@ -9,7 +9,7 @@ module.exports.userCreate = async (req, res) => {
 
     if (user) return res.status(400).json({ message: "User already exists" });
 
-    bcrypt.genSalt(saltRounds, function (err, salt) {
+    bcrypt.genSalt(10, function (err, salt) {
       if (err)
         return res.status(500).json({
           message: err.message || err,
