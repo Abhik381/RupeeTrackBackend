@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.userCreate = async (req, res) => {
   try {
-    const { email, contact, password } = red.body;
+    const { email, contact, password } = req.body;
     const user = await userModel.findOne({ email });
 
     if (user) return res.status(400).json({ message: "User already exists" });
