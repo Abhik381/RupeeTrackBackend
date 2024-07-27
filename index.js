@@ -9,14 +9,12 @@ const cors = require("cors");
 
 app.use(cors())
 
-const port = process.env.PORT || 3000;
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookiParser());
 
 app.use("/users", userRouter);
 
-app.listen(port, () => {
+app.listen(3000, () => {
   debuger(`Server is running on port ${port}`);
 });
