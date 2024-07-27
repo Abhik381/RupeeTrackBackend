@@ -3,20 +3,15 @@
     "name": "RupeeTrack-Server",
     "builds": [
         {
-            "src": "./server.js",
+            "src": "src/server.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "src/server.js",
+            "methods": ["GET", "POST"]
         }
-    ],
-     "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "https://rupee-track-backend-90i858cn7-abhik-s-projects.vercel.app/"
-    }
-  ]
+    ]
 }
