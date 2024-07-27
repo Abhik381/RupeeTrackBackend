@@ -12,5 +12,11 @@
             "src": "/(.*)",
             "dest": "/"
         }
-    ]
+    ],
+     "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "https://rupee-track-backend-90i858cn7-abhik-s-projects.vercel.app/"
+    }
+  ]
 }
