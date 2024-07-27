@@ -12,6 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookiParser());
 
+app.get("/", function(req,res){
+  res.json({
+    name: "Abhik Mondal"
+  })
+}
+
 app.use("/users", userRouter);
 
 app.listen(process.env.PORT, () => {
