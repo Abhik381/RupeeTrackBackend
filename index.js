@@ -17,6 +17,6 @@ app.use(cookiParser());
 
 app.use("/users", userRouter);
 
-app.listen(3000, () => {
+app.listen(port, () => {
   debuger(`Server is running on port ${port}`);
 });
