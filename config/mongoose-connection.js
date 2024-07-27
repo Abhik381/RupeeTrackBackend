@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const config = require("config");
-const debuger = require("debug")("development:mongoose");
+const debuger = require("debug")("production:mongoose");
 
 mongoose
   .connect(`${config.get("MONGODB_URI")}`)
