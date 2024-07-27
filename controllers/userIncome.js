@@ -1,5 +1,7 @@
 const { createDate } = require("../utils/createDate.js");
 const incomeModel = require("../models/IncomeModel.js");
+const userModel = require("../models/usersModel.js");
+const jwt = require("jsonwebtoken");
 
 module.exports.userIncome = async (req, res) => {
   try {
@@ -13,6 +15,13 @@ module.exports.userIncome = async (req, res) => {
     };
 
     const income = await incomeModel.create(payload);
+
+
+    const decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
+    const user = await userModel.findOne({email: decoded.email}).select ("-password");
+    user.balance = Number(user.balance) + Number(rupee);
+    await user.save();
+
     res.status(201).json({
       message: "Your money credited successfully",
       data: income,
@@ -25,3 +34,4 @@ module.exports.userIncome = async (req, res) => {
     });
   }
 };
+``

@@ -32,14 +32,12 @@ module.exports.userCreate = async (req, res) => {
         );
         res.cookie("token", token);
 
-        if (createUser) {
-          res.satatus(201).json({
-            message: "User created successfully",
-            token: token,
-            user: createUser,
-            success: true,
-          });
-        }
+        res.status(201).json({
+          message: "User created successfully",
+          token: token,
+          user: createUser,
+          success: true,
+        });
       });
     });
   } catch (error) {

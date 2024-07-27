@@ -13,9 +13,13 @@ try {
       type: String,
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users"
+    }
   });
   const expensesModel = mongoose.model("Expenses", expensesSchema);
 
