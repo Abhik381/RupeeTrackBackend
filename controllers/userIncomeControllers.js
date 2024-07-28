@@ -1,11 +1,11 @@
-const { createDate } = require("../utils/createDate.js");
+const createDate = require("../utils/createDate.js");
 const incomeModel = require("../models/IncomeModel.js");
 const userModel = require("../models/usersModel.js");
 const jwt = require("jsonwebtoken");
 
-module.exports.userIncome = async (req, res) => {
+const userIncome = async (req, res) => {
   try {
-    const { rupee, description, typeOfMoney } = req.body;
+    const { rupee, description, typeOfMoney, token } = req.body;
 
     const payload = {
       rupee,
@@ -16,10 +16,13 @@ module.exports.userIncome = async (req, res) => {
 
     const income = await incomeModel.create(payload);
 
-
-    const decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
-    const user = await userModel.findOne({email: decoded.email}).select ("-password");
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    const user = await userModel
+      .findOne({ email: decoded.email })
+      .select("-password");
     user.balance = Number(user.balance) + Number(rupee);
+    console.log(income._id.toString());
+    user.income.push(income._id.toString());
     await user.save();
 
     res.status(201).json({
@@ -34,4 +37,5 @@ module.exports.userIncome = async (req, res) => {
     });
   }
 };
-``
+
+module.exports = userIncome;

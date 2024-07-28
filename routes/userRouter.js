@@ -1,10 +1,12 @@
 const express = require("express");
+const userCreate = require("../controllers/userCreateControllers.js");
+const userLogin = require("../controllers/userLoginControllers.js");
+const userLogout = require("../controllers/userLogoutControllers.js");
+const userIncome = require("../controllers/userIncomeControllers.js");
+const userExpenses = require("../controllers/userExpensesControllers.js");
+
+
 const router = express.Router();
-const { userCreate } = require("../controllers/userCreate.js");
-const { userLogin } = require("../controllers/userLogin.js");
-const { userLogout } = require("../controllers/userLogout.js");
-const { userIncome } = require("../controllers/userIncome.js");
-const { userExpenses } = require("../controllers/userExpenses.js");
 
 router.post("/register", userCreate);
 router.post("/login", userLogin);

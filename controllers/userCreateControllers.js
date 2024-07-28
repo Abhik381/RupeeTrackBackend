@@ -2,7 +2,7 @@ const userModel = require("../models/usersModel.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-module.exports.userCreate = async (req, res) => {
+const userCreate = async (req, res) => {
   try {
     const { email, contact, password } = req.body;
     const user = await userModel.findOne({ email });
@@ -41,9 +41,12 @@ module.exports.userCreate = async (req, res) => {
       });
     });
   } catch (error) {
+    console.log(error.message || error);
     res.status(500).json({
       message: "Internal server error",
       error: error.message || error,
     });
   }
 };
+
+module.exports = userCreate;

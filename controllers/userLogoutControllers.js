@@ -1,4 +1,5 @@
-module.exports.userLogout = (req, res) => {
+
+const userLogout = (req, res) => {
   try {
     res.cookie("token", "");
     res.status(201).json({
@@ -12,3 +13,5 @@ module.exports.userLogout = (req, res) => {
     });
   }
 };
+
+module.exports = userLogout;
