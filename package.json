@@ -2,9 +2,9 @@
   "name": "rupeetrack",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "nodemon server.js"
+    "test": "nodemon index.js"
   },
   "keywords": [],
   "author": "Abhik Mondal",
