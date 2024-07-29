@@ -6,6 +6,7 @@ const userIncome = require("../controllers/userIncomeControllers.js");
 const userExpenses = require("../controllers/userExpensesControllers.js");
 const userIncomeData = require("../controllers/userIncomeDataControllers.js");
 const userExpensesData = require("../controllers/userExpenseseDataControllers.js");
+const userData = require("../controllers/userDataControllers.js")
 
 const router = express.Router();
 
@@ -14,7 +15,8 @@ router.post("/login", userLogin);
 router.get("/logout", userLogout);
 router.post("/income", userIncome);
 router.post("/expenses", userExpenses);
-router.post("/userincomedata", userIncomeData)
-router.post("/userexpensesdata", userExpensesData)
+router.post("/userincomedata", userIncomeData);
+router.post("/userexpensesdata", userExpensesData);
+router.post("/userdata", userData)
 
 module.exports = router;

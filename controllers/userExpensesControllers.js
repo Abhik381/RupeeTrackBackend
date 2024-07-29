@@ -2,6 +2,7 @@ const createDate = require("../utils/createDate.js");
 const expensesModel = require("../models/ExpensesModel.js");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/usersModel.js");
+const {expensesBalanceCalculate} = require("../utils/balanceCalculate.js");
 
 const userExpenses = async (req, res) => {
   try {
@@ -20,6 +21,7 @@ const userExpenses = async (req, res) => {
     const user = await userModel
       .findOne({ email: decoded.email })
       .select("-password");
+      expensesBalanceCalculate(user,expenses);
     user.balance = Number(user.balance) - Number(rupee);
     console.log(expenses._id.toString());
     user.expenses.push(expenses._id.toString());
@@ -28,6 +30,7 @@ const userExpenses = async (req, res) => {
     res.status(201).json({
       message: "Your money debited successfully",
       data: expenses,
+      user,
       success: true,
     });
   } catch (err) {

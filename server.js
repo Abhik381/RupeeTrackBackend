@@ -27,7 +27,7 @@ app.get("/", (req, res)=>{
 // server connection
 mongoose_connection()
   .then(() => {
-    app.listen(4000, () => {
+    app.listen(port, () => {
       console.log(`Server runing at port no ${port}`);
     });
   })

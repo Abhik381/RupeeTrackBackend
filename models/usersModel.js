@@ -25,6 +25,14 @@ const usersSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  expensesBalance: {
+    type: Number,
+    default: 0,
+  },
+  incomeBalance: {
+    type: Number,
+    default: 0,
+  }
 });
 
 const usersModel = mongoose.model("users", usersSchema);

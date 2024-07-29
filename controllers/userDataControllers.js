@@ -1,23 +1,23 @@
 const userModel = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 
-const userIncomeData = async (req,res)=>{
+const userData = async (req,res)=>{
     try {
         const {token} = req.body;
         const user = jwt.verify(token,process.env.JWT_KEY);
-        const userIncomeData = await userModel.findOne({email: user.email}).select("-password").populate("income");
+        const userData = await userModel.findOne({email: user.email}).select("-password");
         res.status(201).json({
             message: "User Find Succesfully.",
-            data: userIncomeData,
+            data: userData,
             success: true
         })
-    } catch (error) {
-        console.log(error.message || error);
+    } catch (err) {
+        console.log(err.message || err);
         res.status(500).json({
-            message: error.message || error,
+            message: err.message || err,
             error: true
         })
     }
 }
 
-module.exports = userIncomeData;
+module.exports = userData;
