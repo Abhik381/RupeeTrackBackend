@@ -23,9 +23,10 @@ const userExpenses = async (req, res) => {
       .select("-password");
       expensesBalanceCalculate(user,expenses);
     user.balance = Number(user.balance) - Number(rupee);
-    console.log(expenses._id.toString());
     user.expenses.push(expenses._id.toString());
+    expenses.user = user._id;
     await user.save();
+    await expenses.save();
 
     res.status(201).json({
       message: "Your money debited successfully",

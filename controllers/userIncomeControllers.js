@@ -24,9 +24,10 @@ const userIncome = async (req, res) => {
       .populate("income");
     incomeBalanceCalculate(user, income);
     user.balance = Number(user.balance) + Number(rupee);
-    console.log(income._id.toString());
     user.income.push(income._id.toString());
+    income.user = user._id;
     await user.save();
+    await income.save();
 
     res.status(201).json({
       message: "Your money credited successfully",
