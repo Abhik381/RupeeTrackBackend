@@ -4,7 +4,7 @@ const userModel = require("../models/usersModel");
 
 const cardEdit = async (req, res) => {
   try {
-    let { id, modelType, updateData } = req.body;
+    let { modelType, updateData, id } = req.body;
     if (modelType === "income") {
       let oldincome = await incomeModel.findById(id);
       let updateincome = await incomeModel.findByIdAndUpdate(id, updateData);
@@ -26,7 +26,10 @@ const cardEdit = async (req, res) => {
       });
     } else if (modelType === "expenses") {
       let oldexpenses = await expensesModel.findById(id);
-      let upadateexpenses = await expensesModel.findByIdAndUpdate(id, updateData);
+      let upadateexpenses = await expensesModel.findByIdAndUpdate(
+        id,
+        updateData
+      );
       const user = await userModel.findOne({ _id: oldexpenses.user });
       console.log(oldexpenses);
       user.balance =
@@ -34,7 +37,9 @@ const cardEdit = async (req, res) => {
         Number(oldexpenses.rupee) -
         Number(upadateexpenses.rupee);
       user.expensesBalance =
-        Number(user.expensesBalance) - Number(oldexpenses.rupee) + Number(upadateexpenses.rupee);
+        Number(user.expensesBalance) -
+        Number(oldexpenses.rupee) +
+        Number(upadateexpenses.rupee);
       user.expenses.splice(user.expenses.indexOf(id), 1);
       user.expenses.push(upadateexpenses._id.toString());
       await user.save();
