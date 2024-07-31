@@ -22,7 +22,7 @@ router.post("/userincomedata", userIncomeData);
 router.post("/userexpensesdata", userExpensesData);
 router.post("/userdata", userData);
 router.post("/carddelete", cardDelete);
-router.put("/cardedit", cardEdit);
+router.post("/cardedit", cardEdit);
 router.post("/cardData", cardData);
 
 module.exports = router;

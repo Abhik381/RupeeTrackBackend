@@ -5,10 +5,14 @@ const userModel = require("../models/usersModel");
 const cardEdit = async (req, res) => {
   try {
     let { modelType, updateData, id } = req.body;
+    if(modelType === "income")
+    var oldincome = await incomeModel.findById(id);
+    let oldexpenses = await expensesModel.findById(id);
     if (modelType === "income") {
-      let oldincome = await incomeModel.findById(id);
-      let updateincome = await incomeModel.findByIdAndUpdate(id, updateData);
-      let user = await userModel.findOne({ _id: oldincome.user });
+      await incomeModel.findOneAndUpdate({_id: id}, updateData);
+      let updateincome = await incomeModel.findById(id)
+      let user = await userModel.findOne({ _id: updateincome.user });
+
       user.balance =
         Number(user.balance) -
         Number(oldincome.rupee) +
@@ -21,17 +25,17 @@ const cardEdit = async (req, res) => {
       user.income.push(updateincome._id.toString());
       await user.save();
       res.status(201).json({
-        message: "incomecard edited successfull.",
+        message: "incomeCard edited successfull.",
         success: true,
+        user
       });
     } else if (modelType === "expenses") {
-      let oldexpenses = await expensesModel.findById(id);
-      let upadateexpenses = await expensesModel.findByIdAndUpdate(
+      await expensesModel.findByIdAndUpdate(
         id,
         updateData
       );
+      let upadateexpenses = await expensesModel.findById(id);
       const user = await userModel.findOne({ _id: oldexpenses.user });
-      console.log(oldexpenses);
       user.balance =
         Number(user.balance) +
         Number(oldexpenses.rupee) -
@@ -44,8 +48,9 @@ const cardEdit = async (req, res) => {
       user.expenses.push(upadateexpenses._id.toString());
       await user.save();
       res.status(201).json({
-        message: "expensescard edited successfull.",
+        message: "expensesCard edited successfull.",
         success: true,
+        user
       });
     }
   } catch (error) {
