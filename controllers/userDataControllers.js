@@ -5,7 +5,7 @@ const userData = async (req,res)=>{
     try {
         const {token} = req.body;
         const user = jwt.verify(token,process.env.JWT_KEY);
-        const userData = await userModel.findOne({email: user.email}).select("-password");
+        const userData = await userModel.findOne({email: user.email}).select("-password").populate("income").populate("expenses");
         res.status(201).json({
             message: "User Find Succesfully.",
             data: userData,

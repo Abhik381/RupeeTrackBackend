@@ -11,7 +11,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
-// app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}))
 app.use(cookieParser());
 app.use(cors());
 
@@ -28,7 +28,7 @@ app.get("/", (req, res)=>{
 // server connection
 mongoose_connection()
   .then(() => {
-    app.listen(port, () => {
+    app.listen(4000, () => {
       console.log(`Server runing at port no ${port}`);
     });
   })
